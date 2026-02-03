@@ -1,103 +1,64 @@
-# FinTech Homelab
+# Fintech Engineering Home Lab
 
-This repository is an index of my personal **FinTech Homelab**: a set of self-hosted services, experiments and playgrounds that I use to learn about **networking, distributed systems, low-latency messaging and DevOps** with a realistic, hands-on environment.
+![](attachments/Pasted%20image%2020260203233715.png)
 
-> 🔎 This repo is **only an index**. Each project has its own repository with code, configuration and documentation.
 
----
+### Quantitative Finance | DeFi | Sovereign AI Infrastructure
 
-## Goals
-
-My Homelab is designed to support:
-
-- **FinTech & Quant experiments** (data grids, messaging, sharded databases, etc.).
-- **Distributed systems** (Hazelcast clusters, MongoDB sharding, replicas).
-- **Networking & security** (VPN, DNS filtering, remote access).
-- **DevOps practice** (Docker, Docker Compose, Linux, monitoring, logging).
-- **Reproducible setups** that I can reference in my CV/portfolio.
+> *A personal research environment bridging the gap between academic theory (Statistics & Quant Finance) and production-grade engineering.*
 
 ---
 
-## Hardware & Base Setup
+## 👨‍💻 About The Lab
+Welcome to my central repository for the **Master in Fintech Engineering**. This monorepo hosts a collection of projects exploring:
+* **Algorithmic Trading:** From statistical arbitrage to HFT simulation.
+* **Sovereign AI:** Private RAG implementations for financial data analysis.
+* **DeFi Protocols:** Smart contract auditing and on-chain analytics.
 
-High-level overview (evolves over time):
-
-- A small cluster of **repurposed laptops/PCs** running Linux.
-- A **managed switch** for VLANs / multicast / lab networks.
-- Several **Docker hosts** for running services and experiments.
-- Remote access using **VPN + SSH** to expose the lab only to trusted users.
-
-Each individual project repository documents the exact hardware and topology it uses.
+**Core Philosophy:** Strict data sovereignty, energy efficiency, and modular architecture.
 
 ---
 
-## Project Index
+## 📂 Project Portfolio
 
-### 1. Networking, DNS & VPN
+### AI & Orchestration
+* **[Fintech-Hybrid-Engine](./Secure-Quant-RAG-Distributed%20Vector%20Logic)**
+    * A distributed RAG architecture designed for financial data sovereignty. It utilizes a Semantic Router to intelligently switch between local private AI (Ollama) for sensitive tasks like **Smart Contract Audits** or **M&A Document Analysis**, and cloud models (Gemini) for general reasoning. This ensures proprietary algorithms and client data never leave the on-premise infrastructure.
+    * **Stack:** n8n, Qdrant, Ollama, Gemini.
+    
+    ![](attachments/Pasted%20image%2020260203235127.png)
 
-- **Pi-hole + WireGuard VPN**  
-  _Ad-blocking DNS and private VPN to access the Homelab securely from outside._  
-  Repo: _TBD_ (coming soon)
+### 📈 Quantitative Finance (In Progress)
+* *(Aquí irán tus futuros proyectos de trading)*
+* *Link a carpetas de backtesting, etc.*
 
-### 2. Databases & Storage
+### ⛓️ Blockchain & DeFi (In Progress)
+* *Smart Contract Audits*
+* *Tokenomics Simulations*
 
-- **MongoDB Sharded Cluster with Docker**  
-  Lab to build a production-style **sharded MongoDB cluster** using Docker containers:
-  - Config servers as a replica set.
-  - Multiple shards (each as a replica set).
-  - `mongos` query router.
-  - Basic sharding configuration and failover tests.  
-  Repo: [mongodb-sharded-cluster-docker](https://github.com/PelayoU/mongodb-sharded-cluster-docker)
 
-- **Other database labs**  
-  _Future experiments with SQL/NoSQL databases, replication and backups._  
-  Repo(s): _TBD_
-
-### 3. Distributed Computing & Messaging
-
-- **Hazelcast / In-Memory Data Grid labs**  
-  Clusters for experimenting with:
-  - Partitioned and replicated data structures.
-  - Serialization (Java, Protobuf, Kryo, etc.).
-  - Latency / throughput comparisons for FinTech-style workloads.  
-  Repo: _TBD_
-
-- **Messaging / Low-latency protocols**  
-  Experiments with message brokers, pub/sub patterns and financial messaging protocols.  
-  Repo: _TBD_
-
-### 4. Storage, Cloud & Services
-
-- **Self-hosted services** (planned)  
-  Examples:
-  - Personal cloud (e.g. Nextcloud).
-  - Centralized logging / metrics.
-  - Dashboards to monitor the Homelab state.  
-  Repo(s): _TBD_
 
 ---
 
-## How to Use This Repository
+## 🏗️ Distributed Infrastructure
+Unlike standard development setups, this lab operates on a custom **3-Node Hybrid Cluster** to balance compute power and energy efficiency:
 
-This `homelab` repository:
-
-1. Gives an **overview** of my Homelab architecture and goals.
-2. Links to **individual project repositories**, each one focused on a single topic.
-3. Acts as a **landing page** for recruiters and collaborators:
-   - Quick view of what I’m building.
-   - Direct links to code, diagrams and documentation in each project.
-
-If you are interested in a specific topic (e.g. MongoDB sharding), go directly to the corresponding project repository.
+| Node | Type | Key Role |
+| :--- | :--- | :--- |
+| **🟢 Orchestrator** | HP Laptop (Low Power) | Runs **n8n**, Docker Swarm, and Network Routing (Wireguard). |
+| **🔴 Compute Node** | Ryzen 5 + RX 7800XT | Dedicated **AI Inference (Ollama)** and Vector Search (**Qdrant**). |
+| **🔵 Client** | MacBook M4 | Development, visualization, and manual triggers. |
 
 ---
 
-## Roadmap
 
-Some ideas I plan to add over time:
-
-- More **database labs** (replication, failover, backup strategies).
-- **Monitoring stack** (Prometheus + Grafana or similar).
-- **More advanced network topologies** (VLANs, DMZ, lab vs home separation).
-- Integration of Homelab experiments with **FinTech / Quant projects** (backtesting, risk engines, etc.).
+## 🛠️ Technology Stack
+* **Languages:** Python (QuantLib, Pandas), Solidity, C++.
+* **Infrastructure:** Docker, Portainer, Wireguard.
+* **AI/ML:** Ollama, TensorFlow, Qdrant Vector DB.
+* **Automation:** n8n Workflow Automation.
 
 ---
+### 📬 Contact & Research
+Created by **[Tu Nombre]**.
+*Focusing on the future of decentralized finance.*
