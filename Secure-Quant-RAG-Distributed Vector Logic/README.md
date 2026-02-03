@@ -6,8 +6,8 @@
 
 1. El Cerebro: Router Semántico Adaptativo 
 
+![](attachments/Pasted%20image%2020260203181925.png)
 
-![](Pasted%20image%2020260203181411.png)
 
 
 
