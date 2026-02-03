@@ -1,37 +1,56 @@
 # Fintech-Hybrid-Engine-RAG & Adaptive Routing
 
-![](attachments/Pasted%20image%2020260203210435.png)
 
+![](attachments/Pasted%20image%2020260203210435.png)
+<br>
+
+<br>
+
+## 📑 Table of Contents
+* [🚀 Project Overview](#-project-overview)
+* [💼 Real-World Scenarios](#-real-world-scenarios)
+* [🏗 Distributed Hardware Architecture](#-distributed-hardware-architecture)
+* [Module 1: The Semantic Router](#-module-1-the-semantic-router-inference-engine)
+* [Module 2: The Data Pipeline](#-module-2-the-data-pipeline-etl--sync)
+* [💡 Key Engineering Insights](#-key-engineering-insights)
+* [📋 Requirements & Tech Stack](#-requirements--tech-stack)
 
 ---
+
+<br>
 
 ## 🚀 Project Overview
 
 **Fintech-Hybrid-Engine** is a distributed orchestration infrastructure designed for environments requiring **strict data sovereignty** without sacrificing state-of-the-art AI capabilities.
 
+
 Instead of relying on a "one-size-fits-all" model, this system implements a **Semantic Router**. It evaluates the complexity and sensitivity of every prompt to select the optimal execution path:
 
 1. **Secure Route (On-Premise):** For financial data, personal notes, and proprietary code. Data never leaves the local infrastructure.
-    
+
 2. **Cloud Route (High-Reasoning):** For logic puzzles, advanced coding, or general knowledge tasks.
 
+---
 
-
-###  Figure 1: The Brain (Semantic Router)
+### Figure 1: The Brain (Semantic Router)
 
 The system analyzes user intent to dynamically route queries between a private local GPU (for sensitive data) and high-performance cloud models (for complex reasoning).
 
+<br>
+
 ![](attachments/Pasted%20image%2020260203210502.png)
-
-
+<br>
 
 ### Figure 2: The Nervous System (Sync Pipeline)
 
 A distributed ETL infrastructure that keeps the Vector Database synchronized with Obsidian notes and technical documentation, featuring automated conflict resolution and energy management.
 
+<br>
+
 ![](attachments/Pasted%20image%2020260203210408.png)
+<br>
 
-
+---
 
 ---
 
@@ -49,6 +68,7 @@ This architecture is not just a personal tool; it addresses critical compliance 
 | **"Audit `Vault.sol` for reentrancy bugs."** | 🟢 **Local Route (7800XT)** | Prevents unreleased code/contracts from leaking to third-party model providers. **Zero-Trust Audit.** |
 | **"Explain the difference between ERC-721 and ERC-1155."** | ☁️ **Cloud Route (Gemini)** | General documentation questions do not require privacy but benefit from better reasoning. |
 
+
 ### ⚖️ Scenario B: The Legal & Quant Analyst (Data Privacy)
 *Handling sensitive financial instruments and client data.*
 
@@ -56,14 +76,16 @@ This architecture is not just a personal tool; it addresses critical compliance 
 | :--- | :--- | :--- |
 | **"Summarize this M&A NDA PDF."** | 🟢 **Local Route (7800XT)** | Client names and deal terms must never leave the on-premise infrastructure (GDPR/Compliance). |
 | **"Draft a polite email declining a meeting."** | ⚡ **Cloud Route (Flash)** | Routine tasks are offloaded to cheap/fast cloud models to save local GPU resources. |
-        
-
 
 ---
+---
+
+<br>
 
 ## 🏗 Distributed Hardware Architecture
 
 The following represents the **Reference Implementation** used in production. While the system is hardware-agnostic, this distributed topology is recommended to balance energy consumption (laptop) vs. inference power (GPU):
+
 
 |**Node**|**Role**|**Hardware**|**Function**|
 |---|---|---|---|
@@ -74,11 +96,13 @@ The following represents the **Reference Implementation** used in production. Wh
 
 ---
 
-##  Module 1: The Semantic Router (Inference Engine)
+<br>
+## Module 1: The Semantic Router (Inference Engine)
 
 This is the core intelligence of the system. Instead of relying on a single model, the **Orchestrator (n8n)** acts as a gateway that classifies user intent in real-time using a lightweight local LLM.
 
 ![](attachments/Pasted%20image%2020260203210502.png)
+<br>
 
 
 ### How it Works
@@ -92,13 +116,15 @@ This is the core intelligence of the system. Instead of relying on a single mode
 | **⚡ CLOUD_EASY** | Query is generic, simple, or requires up-to-date internet info. | **Gemini Flash/Lite** | *"Write a python regex to validate emails."* |
 | **🧠 CLOUD_HARD** | Query requires deep reasoning, complex math, or creative writing. | **Gemini Pro/Ultra** | *"Explain the implications of Quantum Computing on RSA encryption."* |
 
+
 > **Key Feature:** The decision to route data to the cloud is made **locally**. If the Router classifies the intent as "Sensitive/Local", the data never leaves your LAN.
-
-
-
 
 ---
 
+
+
+
+<br>
 
 ##  Module 2: The Data Pipeline (ETL & Sync)
 
@@ -106,26 +132,30 @@ While the Router handles intelligence, this module handles **Memory**. It is a s
 
 ### 🛡️ Layer 1: Hardware Orchestration & Safety
 Before processing a single file, the system performs a series of "Health Checks" to ensure infrastructure stability:
+<br>
 
 ![](attachments/Pasted%20image%2020260203211810.png)
-
-
+<br>
 
 * **Concurrency Control (Mutex Locking):**
     To prevent database corruption from overlapping triggers (e.g., a manual push happening during a scheduled cron job), the pipeline creates a physical lock file (`/tmp/obsidian.lock`). If a second execution starts while the file exists, it immediately terminates with a `BUSY` status.
+
 * **Energy Management (Smart WoL):**
     The GPU Server (Ryzen 5600 + 7800XT) is power-hungry. The pipeline pings `192.168.1.52`. If unreachable:
     1.  Sends a **Wake-on-LAN** magic packet.
     2.  Enters a **120-second Wait Loop** to allow Ollama/Qdrant services to initialize.
     3.  Re-validates connection before proceeding.
+
 * **Night Guard:**
     Automated schedules are restricted to a **10:00 AM - 12:00 AM** window to prevent the server from waking up and spinning fans at 3 AM, unless a manual "Force Run" webhook is received.
 
+---
 
 ### 🧠 Layer 2: Sync Logic & Identity Management
 The system does not blindly upload files. It employs a **"Smart Sync"** strategy to optimize GPU cycles:
+<br>
 ![](attachments/Pasted%20image%2020260203211834.png)
-
+<br>
 
 * **The "Delta" Decision:**
     A JavaScript normalization node determines the scope of the sync:
@@ -141,6 +171,8 @@ The system does not blindly upload files. It employs a **"Smart Sync"** strategy
 Data quality is paramount for RAG. The pipeline splits traffic based on file content to apply specialized processing:
 
 ![](attachments/Pasted%20image%2020260203211900.png)
+<br>
+
 
 
 
@@ -160,14 +192,20 @@ Data quality is paramount for RAG. The pipeline splits traffic based on file con
 ---
 
 
+<br>
+
+
 ## 💡 Key Engineering Insights
 
 This project highlights several critical trade-offs faced in modern AI Architecture:
 
+
 ### 1. Cost & Energy Optimization ("Green AI")
 Running a dedicated GPU server (7800XT) 24/7 is inefficient for sporadic workloads.
 * **Energy:** By implementing the **"Night Guard"** window and **Wake-on-LAN** protocols, the system reduces idle power consumption by approximately **90%** compared to an always-on server.
+
 * **OpEx:** The Semantic Router acts as a financial firewall. By handling 80% of queries (RAG, summarization) locally, the system drastically reduces external API costs (Gemini/OpenAI), reserving budget only for high-value reasoning tasks.
+
 
 ### 2. Consistency over Availability (The CAP Theorem)
 In financial data systems, data integrity is non-negotiable.
@@ -183,8 +221,11 @@ Standard ETL tools often fail to process proprietary technical formats.
 
 
 
-
 ---
+---
+
+<br>
+
 ## 📋 Requirements & Tech Stack
 
 To replicate this architecture, you will need a distributed environment (or a single powerful machine) running the following:
@@ -210,7 +251,6 @@ ollama pull nomic-embed-text
 ollama pull llama3  # or 'mistral'
 ```
 
+<br>
 
-
-
-
+Created by Pelayo Urzaiz - 2026
