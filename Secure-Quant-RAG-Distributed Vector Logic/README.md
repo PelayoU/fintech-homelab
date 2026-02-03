@@ -1,14 +1,14 @@
 # Fintech-Hybrid-Engine-RAG & Adaptive Routing
 
 
-![[Pasted image 20260203175340.png]]
+
 
 
 1. El Cerebro: Router Semántico Adaptativo 
 
-![[Pasted image 20260203175741.png]]
+![[Pasted image 20260203180808.png]]
 
-![[Pasted image 20260203175656.png]]
+
 
 
 
